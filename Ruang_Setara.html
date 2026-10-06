@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ruang Setara - Kenapa Harus Beda?</title>
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        heading: ['Poppins', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            green: '#3A5A40',
+                            lightgreen: '#A3B18A',
+                            cream: '#DAD7CD',
+                            white: '#FAFAFA',
+                            dark: '#344E41'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- React & Babel -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <style>
+        /* Custom Batik-like Pattern for Hero */
+        .batik-pattern {
+            background-color: #DAD7CD;
+            background-image: radial-gradient(#A3B18A 2px, transparent 2px), radial-gradient(#A3B18A 2px, transparent 2px);
+            background-size: 32px 32px;
+            background-position: 0 0, 16px 16px;
+        }
+        
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+<body class="bg-brand-white text-gray-800 font-sans antialiased">
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect } = React;
+
+        const Navbar = () => (
+            <nav class="fixed w-full z-50 bg-brand-white/90 backdrop-blur-md shadow-sm">
+                <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="flex justify-between h-16 items-center">
+                        <div class="flex items-center gap-2">
+                            <div class="bg-brand-green text-white p-2 rounded-lg">
+                                <i class="fa-solid fa-leaf"></i>
+                            </div>
+                            <span class="font-heading font-bold text-xl text-brand-dark">Ruang Setara</span>
+                        </div>
+                        <div class="hidden md:flex space-x-6 text-sm font-medium text-brand-dark">
+                            <a href="#beranda" class="hover:text-brand-green transition">Beranda</a>
+                            <a href="#budaya" class="hover:text-brand-green transition">Kenali Budaya</a>
+                            <a href="#situasi" class="hover:text-brand-green transition">Situasi</a>
+                            <a href="#refleksi" class="hover:text-brand-green transition">Refleksi</a>
+                            <a href="#tentang" class="hover:text-brand-green transition">Tentang</a>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        );
+
+        const Hero = () => (
+            <section id="beranda" class="pt-24 pb-12 md:pt-32 md:pb-20 px-4">
+                <div class="max-w-4xl mx-auto bg-brand-cream rounded-3xl overflow-hidden shadow-lg border border-brand-lightgreen/30">
+                    <div class="batik-pattern h-32 md:h-48 w-full"></div>
+                    <div class="p-8 md:p-12 text-center md:text-left bg-white">
+                        <div class="inline-block px-3 py-1 bg-brand-cream text-brand-dark text-xs font-semibold rounded-full mb-4">
+                            BUDAYA • REMAJA • KESETARAAN
+                        </div>
+                        <h1 class="font-heading text-3xl md:text-5xl font-bold text-brand-dark mb-4">
+                            Kenapa Harus Beda?
+                        </h1>
+                        <p class="text-gray-600 mb-6 text-lg leading-relaxed max-w-2xl">
+                            Pernahkah kamu merasa aturan untuk remaja perempuan dan laki-laki itu berbeda? 
+                            Mari memahami standar ganda gender dalam pergaulan remaja Jawa di Pakem, Sleman.
+                        </p>
+                        <div class="flex flex-wrap gap-4 justify-center md:justify-start">
+                            <a href="#budaya" class="px-6 py-3 bg-brand-green text-white rounded-full font-medium hover:bg-brand-dark transition shadow-md">
+                                Mulai Jelajahi
+                            </a>
+                            <a href="#refleksi" class="px-6 py-3 bg-brand-cream text-brand-dark rounded-full font-medium hover:bg-[#c9c5ba] transition">
+                                Refleksikan
+                            </a>
+                        </div>
+                        <p class="mt-6 text-xs text-gray-500 italic">
+                            *Materi edukasi ini berangkat dari penelitian observasi di Pakem.
+                        </p>
+                    </div>
+                </div>
+            </section>
+        );
+
+        const CultureSection = () => (
+            <section id="budaya" class="py-16 px-4 bg-white">
+                <div class="max-w-6xl mx-auto">
+                    <h2 class="font-heading text-3xl font-bold text-brand-dark mb-2 text-center">Kenali Budaya & Norma Sosial</h2>
+                    <p class="text-center text-gray-600 mb-12 max-w-2xl mx-auto">Memahami dasar lingkungan sosial sebelum menilai sebuah aturan.</p>
+                    
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <div class="bg-brand-cream/30 p-8 rounded-2xl border border-brand-cream hover:shadow-md transition">
+                            <div class="w-12 h-12 bg-brand-lightgreen text-brand-dark rounded-full flex items-center justify-center text-xl mb-4">
+                                <i class="fa-solid fa-scale-balanced"></i>
+                            </div>
+                            <h3 class="font-heading text-xl font-semibold mb-3">Apa itu Standar Ganda Gender?</h3>
+                            <p class="text-gray-700 leading-relaxed">
+                                Standar ganda gender terjadi ketika ada aturan, harapan, atau penilaian yang berbeda 
+                                terhadap laki-laki dan perempuan dalam situasi yang sama. Seringkali hal ini dipengaruhi 
+                                oleh lingkungan sosial dan budaya setempat.
+                            </p>
+                        </div>
+                        
+                        <div class="bg-brand-cream/30 p-8 rounded-2xl border border-brand-cream hover:shadow-md transition">
+                            <div class="w-12 h-12 bg-brand-lightgreen text-brand-dark rounded-full flex items-center justify-center text-xl mb-4">
+                                <i class="fa-solid fa-hands-holding-circle"></i>
+                            </div>
+                            <h3 class="font-heading text-xl font-semibold mb-3">Nilai Lokal Jawa</h3>
+                            <p class="text-gray-700 leading-relaxed mb-3">
+                                Dalam budaya Jawa, kita mengenal beberapa konsep penting yang mendasari norma pergaulan:
+                            </p>
+                            <ul class="space-y-2 text-gray-700">
+                                <li><i class="fa-solid fa-check text-brand-green mr-2"></i> <strong>Unggah-ungguh & Tata Krama:</strong> Sopan santun dalam bersikap.</li>
+                                <li><i class="fa-solid fa-check text-brand-green mr-2"></i> <strong>Ajining Diri:</strong> Menjaga harga diri dan kehormatan keluarga.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        );
+
+        const Situations = () => {
+            const situationsList = [
+                { icon: "fa-clock", title: "Jam Pulang", desc: "Perbedaan batasan waktu keluar malam antara remaja perempuan dan laki-laki." },
+                { icon: "fa-shirt", title: "Aturan Berpakaian", desc: "Ekspektasi kesopanan pakaian yang seringkali lebih ketat bagi satu gender." },
+                { icon: "fa-users", title: "Pergaulan", desc: "Batasan dalam berinteraksi dengan lawan jenis di lingkungan masyarakat." },
+                { icon: "fa-comments", title: "Cara Berbicara", desc: "Tuntutan kelembutan bertutur kata yang dikaitkan dengan gender tertentu." },
+                { icon: "fa-person-biking", title: "Aktivitas Luar", desc: "Pandangan masyarakat terhadap partisipasi aktivitas fisik atau nongkrong di luar rumah." }
+            ];
+
+            return (
+                <section id="situasi" class="py-16 px-4 bg-brand-green text-white">
+                    <div class="max-w-6xl mx-auto">
+                        <div class="text-center mb-12">
+                            <h2 class="font-heading text-3xl font-bold mb-4">Situasi di Sekitar Kita</h2>
+                            <p class="text-brand-cream max-w-2xl mx-auto">
+                                Temuan penelitian menunjukkan penerapan norma yang berbeda dalam beberapa aspek kehidupan sehari-hari remaja.
+                            </p>
+                        </div>
+                        
+                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                            {situationsList.map((item, index) => (
+                                <div key={index} class="bg-brand-dark/50 p-6 rounded-2xl backdrop-blur-sm border border-brand-lightgreen/20">
+                                    <i class={`fa-solid ${item.icon} text-3xl text-brand-lightgreen mb-4`}></i>
+                                    <h3 class="font-heading text-xl font-semibold mb-2">{item.title}</h3>
+                                    <p class="text-gray-300 text-sm leading-relaxed">{item.desc}</p>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </section>
+            );
+        };
+
+        const InteractiveQuiz = () => {
+            const [currentQuestion, setCurrentQuestion] = useState(0);
+            const [selected, setSelected] = useState(null);
+            const [submitted, setSubmitted] = useState(false);
+            const [score, setScore] = useState(0);
+            const [showResult, setShowResult] = useState(false);
+            
+            const quizData = [
+                {
+                    title: "1. Aturan Jam Pulang",
+                    situation: "Seorang remaja perempuan dan laki-laki mendapatkan aturan jam pulang yang berbeda. Keduanya memiliki kegiatan di tempat yang sama dan selesai pada waktu yang sama.",
+                    question: "Apa yang sebaiknya dipertimbangkan sebelum menilai apakah aturan tersebut adil?",
+                    options: [
+                        "A. Apakah perbedaan aturan tersebut sesuai dengan kebiasaan yang selama ini berlaku di keluarga.",
+                        "B. Apakah terdapat alasan yang jelas terkait keamanan, kondisi kegiatan, usia, serta tanggung jawab masing-masing.",
+                        "C. Apakah remaja perempuan dan laki-laki memang memiliki tingkat kemandirian yang berbeda dalam situasi tersebut.",
+                        "D. Apakah aturan yang lebih ketat dapat membantu orang tua mengurangi kekhawatiran terhadap salah satu remaja."
+                    ],
+                    correctAnswerIndex: 1, // B
+                    explanation: "Keadilan tidak hanya dilihat dari apakah aturannya sama persis, tetapi juga dari alasan dan kondisi yang mendasarinya. Aturan sebaiknya memiliki alasan yang jelas dan tidak semata-mata didasarkan pada gender."
+                },
+                {
+                    title: "2. Aturan Berpakaian",
+                    situation: "Seorang siswi mendapat teguran karena dianggap berpakaian kurang sopan, sedangkan seorang siswa laki-laki dengan kondisi pakaian yang dianggap kurang rapi mendapat teguran yang lebih ringan.",
+                    question: "Hal yang paling tepat untuk diperhatikan dalam situasi tersebut adalah...",
+                    options: [
+                        "A. Apakah perbedaan pakaian antara laki-laki dan perempuan memang membuat bentuk teguran yang diberikan harus berbeda.",
+                        "B. Apakah aturan berpakaian telah mempertimbangkan karakteristik masing-masing siswa sebelum diterapkan.",
+                        "C. Apakah kriteria penilaian dan konsekuensi yang digunakan terhadap kedua siswa diterapkan secara konsisten.",
+                        "D. Apakah masyarakat pada umumnya memiliki pandangan yang berbeda mengenai cara berpakaian laki-laki dan perempuan."
+                    ],
+                    correctAnswerIndex: 2, // C
+                    explanation: "Untuk melihat kemungkinan adanya standar ganda, hal utama yang perlu diperiksa adalah konsistensi aturan dan konsekuensinya. Perbedaan gender tidak seharusnya menjadi satu-satunya dasar dalam memberikan penilaian."
+                },
+                {
+                    title: "3. Pertemanan Laki-laki dan Perempuan",
+                    situation: "Seorang siswa laki-laki dan perempuan sering mengerjakan tugas bersama. Ketika siswa laki-laki melakukannya, teman-temannya menganggap hal tersebut biasa. Namun, ketika siswa perempuan melakukannya, ia justru mendapat banyak komentar.",
+                    question: "Sikap yang paling tepat terhadap situasi tersebut adalah...",
+                    options: [
+                        "A. Mengurangi interaksi dengan lawan jenis untuk menghindari munculnya penilaian dari lingkungan sekitar.",
+                        "B. Menganggap komentar tersebut sebagai bagian dari kebiasaan sosial selama tidak secara langsung mengganggu kegiatan belajar.",
+                        "C. Menilai hubungan tersebut berdasarkan tujuan, perilaku, batasan, dan tanggung jawab kedua orang yang terlibat.",
+                        "D. Memastikan bahwa interaksi antara laki-laki dan perempuan selalu dilakukan dalam kelompok agar tidak menimbulkan kesalahpahaman."
+                    ],
+                    correctAnswerIndex: 2, // C
+                    explanation: "Pertemanan seharusnya dinilai berdasarkan perilaku dan konteksnya, bukan hanya berdasarkan gender. Menjaga batasan dan tanggung jawab tetap penting, tetapi tidak berarti seseorang harus dinilai berbeda hanya karena jenis kelaminnya."
+                },
+                {
+                    title: "4. Cara Berbicara",
+                    situation: "Seorang siswa laki-laki berbicara dengan tegas ketika menyampaikan pendapat dan dianggap percaya diri. Ketika seorang siswi melakukan hal yang sama, ia justru dianggap kurang sopan.",
+                    question: "Dasar penilaian yang paling tepat adalah...",
+                    options: [
+                        "A. Seberapa sesuai cara berbicara seseorang dengan harapan masyarakat terhadap laki-laki dan perempuan.",
+                        "B. Seberapa kuat seseorang mempertahankan pendapatnya ketika menghadapi perbedaan pandangan.",
+                        "C. Seberapa tepat pilihan kata, nada bicara, sikap, dan situasi ketika pendapat tersebut disampaikan.",
+                        "D. Seberapa nyaman orang lain menerima cara seseorang menyampaikan pendapat dalam suatu kelompok."
+                    ],
+                    correctAnswerIndex: 2, // C
+                    explanation: "Sikap tegas tidak otomatis berarti tidak sopan. Cara berbicara sebaiknya dinilai berdasarkan pilihan kata, nada, sikap, dan konteksnya, bukan berdasarkan apakah pembicaranya laki-laki atau perempuan."
+                },
+                {
+                    title: "5. Kegiatan di Luar Rumah",
+                    situation: "Seorang siswi ingin mengikuti kegiatan sekolah yang selesai sore hari. Orang tuanya memberikan banyak pertanyaan tentang tempat, waktu, teman, dan siapa yang mendampingi. Hal serupa tidak terlalu ditanyakan kepada kakaknya yang laki-laki.",
+                    question: "Apa pendekatan yang paling tepat dalam situasi tersebut?",
+                    options: [
+                        "A. Memberikan kebebasan yang sama kepada kedua remaja agar tidak muncul perbedaan perlakuan dalam keluarga.",
+                        "B. Mempertahankan aturan yang lebih ketat karena perlindungan terhadap remaja harus menjadi pertimbangan utama.",
+                        "C. Membicarakan sumber kekhawatiran dan kondisi kegiatan untuk menentukan aturan yang proporsional bagi masing-masing remaja.",
+                        "D. Mengikuti aturan yang sudah ditetapkan orang tua selama aturan tersebut dibuat berdasarkan pengalaman keluarga."
+                    ],
+                    correctAnswerIndex: 2, // C
+                    explanation: "Keamanan memang penting, tetapi aturan sebaiknya dibuat berdasarkan kondisi nyata, bukan hanya asumsi tentang gender. Komunikasi dapat membantu menemukan aturan yang tetap aman sekaligus proporsional."
+                },
+                {
+                    title: "6. Menjaga Nama Baik Keluarga",
+                    situation: "Dalam sebuah keluarga, remaja perempuan lebih sering diingatkan untuk menjaga sikap karena dianggap membawa nama baik keluarga. Remaja laki-laki mendapat lebih sedikit pengingat mengenai hal tersebut.",
+                    question: "Bagaimana nilai menjaga nama baik keluarga dapat diterapkan secara lebih adil?",
+                    options: [
+                        "A. Memberikan tanggung jawab yang berbeda sesuai dengan peran yang dianggap dimiliki oleh laki-laki dan perempuan dalam keluarga.",
+                        "B. Memastikan seluruh remaja memahami bahwa perilaku mereka dapat mencerminkan keluarga, dengan tanggung jawab yang disesuaikan secara wajar dengan kondisi masing-masing.",
+                        "C. Mengurangi aturan mengenai perilaku agar setiap remaja dapat menentukan sendiri cara menjaga nama baik keluarga.",
+                        "D. Memberikan aturan yang sama kepada seluruh remaja agar tidak ada kemungkinan munculnya perlakuan berbeda."
+                    ],
+                    correctAnswerIndex: 1, // B
+                    explanation: "Menjaga nama baik keluarga dapat menjadi nilai bersama. Tanggung jawab tidak seharusnya dibebankan lebih besar kepada satu gender, tetapi tetap dapat disesuaikan dengan usia, kondisi, dan tanggung jawab masing-masing remaja."
+                },
+                {
+                    title: "7. Memahami Perbedaan Aturan",
+                    situation: "Orang tua memberikan aturan pergaulan yang lebih ketat kepada remaja perempuan dibandingkan remaja laki-laki. Mereka menjelaskan bahwa aturan tersebut dibuat untuk menjaga keamanan dan mempertimbangkan kondisi lingkungan sekitar.",
+                    question: "Cara berpikir yang paling tepat untuk menilai situasi tersebut adalah...",
+                    options: [
+                        "A. Menganggap aturan tersebut wajar karena orang tua memiliki tanggung jawab untuk memberikan perlindungan yang berbeda kepada setiap remaja.",
+                        "B. Menganggap aturan tersebut tidak adil karena setiap remaja seharusnya memperoleh aturan yang sama tanpa pengecualian.",
+                        "C. Memahami alasan dan kondisi yang melatarbelakangi aturan, kemudian mempertimbangkan apakah aturan tersebut dapat diterapkan secara lebih proporsional.",
+                        "D. Mengikuti aturan tersebut terlebih dahulu karena persoalan keadilan dapat dibicarakan setelah remaja memiliki kebebasan yang lebih besar."
+                    ],
+                    correctAnswerIndex: 2, // C
+                    explanation: "Menilai keadilan membutuhkan pertimbangan terhadap konteks. Aturan yang berbeda belum tentu otomatis tidak adil, tetapi alasan, kebutuhan keamanan, dan penerapannya tetap perlu dikaji agar tidak berubah menjadi stereotip atau perlakuan yang tidak proporsional."
+                }
+            ];
+
+            const handleAnswer = (index) => {
+                if(!submitted) setSelected(index);
+            };
+
+            const handleSubmit = () => {
+                if(selected !== null) {
+                    setSubmitted(true);
+                    if (selected === quizData[currentQuestion].correctAnswerIndex) {
+                        setScore(prev => prev + 1);
+                    }
+                }
+            };
+            
+            const handleNext = () => {
+                if (currentQuestion < quizData.length - 1) {
+                    setCurrentQuestion(prev => prev + 1);
+                    setSelected(null);
+                    setSubmitted(false);
+                } else {
+                    setShowResult(true);
+                }
+            };
+
+            const handleRestart = () => {
+                setCurrentQuestion(0);
+                setSelected(null);
+                setSubmitted(false);
+                setScore(0);
+                setShowResult(false);
+            };
+
+            if (showResult) {
+                return (
+                    <div class="bg-white p-6 md:p-8 rounded-3xl shadow-lg border border-gray-100 mb-8 text-center animate-fade-in">
+                        <div class="inline-block p-4 bg-brand-lightgreen/20 rounded-full mb-4">
+                            <i class="fa-solid fa-trophy text-4xl text-brand-green"></i>
+                        </div>
+                        <h3 class="font-heading text-2xl font-bold text-brand-dark mb-2">Selesai!</h3>
+                        <p class="text-gray-600 mb-6">Kamu telah merefleksikan {quizData.length} situasi.</p>
+                        
+                        <div class="bg-brand-cream/30 p-6 rounded-2xl inline-block mb-8">
+                            <p class="text-3xl font-bold text-brand-dark">{score} / {quizData.length}</p>
+                            <p class="text-sm text-gray-500 mt-1">Jawaban Tepat</p>
+                        </div>
+                        
+                        <p class="text-gray-700 leading-relaxed max-w-md mx-auto mb-8">
+                            Ingat, tujuan refleksi ini bukan sekadar mencari benar atau salah, melainkan melatih kepekaan kita dalam memahami alasan di balik suatu aturan dan pentingnya kesetaraan dalam pergaulan remaja.
+                        </p>
+                        
+                        <button 
+                            onClick={handleRestart}
+                            class="px-8 py-3 bg-brand-green text-white rounded-xl font-semibold hover:bg-brand-dark transition shadow-md"
+                        >
+                            Ulangi Refleksi
+                        </button>
+                    </div>
+                );
+            }
+
+            const currentQ = quizData[currentQuestion];
+
+            return (
+                <div class="bg-white p-6 md:p-8 rounded-3xl shadow-lg border border-gray-100 mb-8">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+                        <div class="flex items-center gap-3">
+                            <div class="bg-yellow-100 text-yellow-600 w-10 h-10 rounded-full flex items-center justify-center shrink-0">
+                                <i class="fa-solid fa-lightbulb"></i>
+                            </div>
+                            <h3 class="font-heading text-xl md:text-2xl font-bold text-brand-dark">Yuk, Refleksi!</h3>
+                        </div>
+                        <div class="bg-brand-cream text-brand-dark text-sm font-semibold px-4 py-1.5 rounded-full whitespace-nowrap self-start sm:self-auto">
+                            Situasi {currentQuestion + 1} / {quizData.length}
+                        </div>
+                    </div>
+                    
+                    <h4 class="font-heading font-bold text-lg mb-3 text-brand-dark">{currentQ.title}</h4>
+                    <div class="mb-6 p-4 md:p-5 bg-blue-50 rounded-xl text-blue-900 border border-blue-100 leading-relaxed">
+                        <p class="font-bold mb-2">Situasi:</p>
+                        <p class="mb-4">{currentQ.situation}</p>
+                        <p class="font-semibold italic text-brand-dark">{currentQ.question}</p>
+                    </div>
+
+                    <div class="space-y-3 mb-6">
+                        {currentQ.options.map((opt, index) => {
+                            let btnStyle = "border-gray-200 hover:border-brand-green bg-white text-gray-700";
+                            
+                            if (selected === index) {
+                                btnStyle = "border-brand-green bg-brand-green/10 text-brand-dark";
+                            }
+                            
+                            if (submitted) {
+                                if (index === currentQ.correctAnswerIndex) {
+                                    btnStyle = "border-green-500 bg-green-50 text-green-800 font-medium";
+                                } else if (selected === index && selected !== currentQ.correctAnswerIndex) {
+                                    btnStyle = "border-red-400 bg-red-50 text-red-700";
+                                } else {
+                                    btnStyle = "border-gray-100 bg-gray-50 text-gray-400 opacity-50";
+                                }
+                            }
+
+                            return (
+                                <button 
+                                    key={index}
+                                    onClick={() => handleAnswer(index)}
+                                    disabled={submitted}
+                                    class={`w-full text-left p-4 rounded-xl border-2 transition duration-200 flex items-start gap-3 ${btnStyle}`}
+                                >
+                                    <div class="mt-1">
+                                        {submitted && index === currentQ.correctAnswerIndex ? (
+                                            <i class="fa-solid fa-circle-check text-green-500"></i>
+                                        ) : submitted && selected === index && selected !== currentQ.correctAnswerIndex ? (
+                                            <i class="fa-solid fa-circle-xmark text-red-500"></i>
+                                        ) : (
+                                            <div class={`w-5 h-5 rounded-full border-2 flex-shrink-0 ${selected === index ? 'border-brand-green bg-brand-green' : 'border-gray-300'}`}></div>
+                                        )}
+                                    </div>
+                                    <span>{opt}</span>
+                                </button>
+                            );
+                        })}
+                    </div>
+
+                    {!submitted ? (
+                        <button 
+                            onClick={handleSubmit}
+                            disabled={selected === null}
+                            class={`w-full py-3 md:py-4 rounded-xl font-semibold transition text-lg ${selected !== null ? 'bg-brand-dark text-white hover:bg-black shadow-lg' : 'bg-gray-200 text-gray-400 cursor-not-allowed'}`}
+                        >
+                            Cek Jawaban
+                        </button>
+                    ) : (
+                        <div class="animate-fade-in">
+                            <div class="p-5 md:p-6 bg-brand-cream/40 rounded-xl border border-brand-lightgreen/30 mb-6">
+                                <h4 class="font-heading font-bold text-brand-dark mb-2 flex items-center gap-2">
+                                    <i class="fa-solid fa-book-open text-brand-green"></i> Pembahasan:
+                                </h4>
+                                <p class="text-gray-800 leading-relaxed">
+                                    {currentQ.explanation}
+                                </p>
+                            </div>
+                            <button 
+                                onClick={handleNext}
+                                class="w-full py-3 md:py-4 bg-brand-green text-white rounded-xl font-semibold hover:bg-brand-dark transition shadow-lg text-lg flex justify-center items-center gap-2"
+                            >
+                                {currentQuestion < quizData.length - 1 ? 'Situasi Selanjutnya' : 'Lihat Hasil Refleksi'} <i class="fa-solid fa-arrow-right"></i>
+                            </button>
+                        </div>
+                    )}
+                </div>
+            );
+        };
+
+        const ReflectionBox = () => {
+            const [text, setText] = useState("");
+            const [saved, setSaved] = useState(false);
+
+            const handleSave = () => {
+                if(text.trim() === "") return;
+                setSaved(true);
+                setTimeout(() => setSaved(false), 3000);
+            };
+
+            return (
+                <div class="bg-brand-cream/20 p-6 md:p-8 rounded-3xl border border-brand-cream">
+                    <h3 class="font-heading text-xl font-bold text-brand-dark mb-2 flex items-center gap-2">
+                        <i class="fa-solid fa-book-journal-whills text-brand-green"></i> Kotak Refleksi
+                    </h3>
+                    <p class="text-sm text-gray-600 mb-4">
+                        Tuliskan pemikiranmu secara pribadi. Data ini tidak dikirimkan ke server manapun (hanya ada di perangkatmu).
+                    </p>
+                    <textarea 
+                        value={text}
+                        onChange={(e) => setText(e.target.value)}
+                        placeholder="Apa yang kamu rasakan tentang standar ganda gender di sekitarmu?"
+                        class="w-full h-32 p-4 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-brand-lightgreen resize-none mb-4"
+                    ></textarea>
+                    
+                    <div class="flex items-center justify-between">
+                        <button 
+                            onClick={handleSave}
+                            class="px-5 py-2.5 bg-brand-green text-white rounded-lg font-medium hover:bg-brand-dark transition text-sm"
+                        >
+                            Simpan Catatan
+                        </button>
+                        {saved && (
+                            <span class="text-green-600 text-sm font-medium animate-pulse">
+                                <i class="fa-solid fa-check mr-1"></i> Tersimpan di perangkat
+                            </span>
+                        )}
+                    </div>
+                </div>
+            );
+        };
+
+        const ActionsSection = () => (
+            <section class="py-16 px-4 bg-white">
+                <div class="max-w-4xl mx-auto">
+                    <h2 class="font-heading text-3xl font-bold text-brand-dark mb-8 text-center">Apa yang Bisa Kita Lakukan?</h2>
+                    
+                    <div class="grid sm:grid-cols-2 gap-4">
+                        {[
+                            {text: "Menghargai perbedaan dan keragaman pandangan.", icon: "fa-heart"},
+                            {text: "Memahami alasan di balik aturan orang tua.", icon: "fa-brain"},
+                            {text: "Berkomunikasi dengan orang tua secara terbuka dan sopan.", icon: "fa-comments"},
+                            {text: "Menjaga tata krama dan nilai budaya tanpa harus bias gender.", icon: "fa-leaf"}
+                        ].map((item, i) => (
+                            <div key={i} class="flex items-start gap-4 p-5 rounded-2xl bg-gray-50 border border-gray-100">
+                                <div class="bg-brand-cream text-brand-dark w-10 h-10 rounded-full flex-shrink-0 flex items-center justify-center">
+                                    <i class={`fa-solid ${item.icon}`}></i>
+                                </div>
+                                <p class="text-gray-700 font-medium pt-2">{item.text}</p>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </section>
+        );
+
+        const AboutResearch = () => (
+            <section id="tentang" class="py-16 px-4 bg-brand-cream/30 border-t border-brand-cream">
+                <div class="max-w-4xl mx-auto">
+                    <div class="bg-white p-8 rounded-3xl shadow-sm border border-brand-cream mb-8">
+                        <h2 class="font-heading text-2xl font-bold text-brand-dark mb-6 border-b pb-4">
+                            Tentang Penelitian dan Pengembangan
+                        </h2>
+                        
+                        <div class="space-y-4 text-gray-700">
+                            <div>
+                                <h4 class="font-bold text-brand-dark mb-1">Judul Penelitian</h4>
+                                <p>Standar Ganda Gender dalam Pergaulan Remaja di Pakem, Sleman.</p>
+                            </div>
+                            
+                            <div>
+                                <h4 class="font-bold text-brand-dark mb-1">Metode & Tujuan</h4>
+                                <p>Menggunakan metode wawancara dan observasi untuk memahami pengalaman remaja, dengan tujuan menciptakan media edukasi yang relevan.</p>
+                            </div>
+
+                            <div>
+                                <h4 class="font-bold text-brand-dark mb-1">Pengembangan Media</h4>
+                                <p>Website <strong>Ruang Setara</strong> ini dikembangkan sebagai prototipe media edukasi interaktif berkelanjutan yang dapat diterapkan di sekolah-sekolah lain.</p>
+                            </div>
+                        </div>
+
+                        <div class="mt-8 pt-6 border-t flex items-center gap-4">
+                            <div class="w-12 h-12 bg-brand-green text-white rounded-full flex items-center justify-center text-xl">
+                                <i class="fa-solid fa-users"></i>
+                            </div>
+                            <div>
+                                <p class="text-sm text-gray-500">Tim Pengembang & Peneliti</p>
+                                <p class="font-heading font-bold text-brand-dark text-lg">Quinn dan Kayla</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        );
+
+        const Footer = () => (
+            <footer class="bg-brand-dark text-white py-8 px-4 text-center">
+                <div class="max-w-4xl mx-auto">
+                    <h3 class="font-heading font-bold text-xl mb-4 flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-leaf text-brand-lightgreen"></i> Ruang Setara
+                    </h3>
+                    <p class="text-gray-400 text-sm mb-6">Menciptakan pemahaman melalui budaya dan refleksi.</p>
+                    
+                    <div class="text-xs text-gray-500 border-t border-gray-700 pt-6 flex flex-col md:flex-row justify-between items-center gap-4">
+                        <span>&copy; {new Date().getFullYear()} Quinn & Kayla. All rights reserved.</span>
+                        <div class="flex gap-4">
+                            <span class="hover:text-brand-lightgreen cursor-pointer">Sumber & Referensi</span>
+                            <span class="hover:text-brand-lightgreen cursor-pointer">Kebijakan Privasi</span>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        );
+
+        const App = () => {
+            return (
+                <div class="min-h-screen flex flex-col selection:bg-brand-lightgreen selection:text-brand-dark">
+                    <Navbar />
+                    
+                    <main class="flex-grow">
+                        <Hero />
+                        <CultureSection />
+                        <Situations />
+                        
+                        {/* Wrapper for Refleksi Section */}
+                        <section id="refleksi" class="py-16 px-4 bg-white/50">
+                            <div class="max-w-4xl mx-auto">
+                                <InteractiveQuiz />
+                                <ReflectionBox />
+                            </div>
+                        </section>
+
+                        <ActionsSection />
+                        <AboutResearch />
+                    </main>
+
+                    <Footer />
+                </div>
+            );
+        };
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+</html>
